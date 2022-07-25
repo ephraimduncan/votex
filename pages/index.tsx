@@ -24,14 +24,14 @@ const Application: NextPage<{}> = () => {
         </div>
 
         <Grid.Container gap={2} justify="center">
-          <Grid xs={24} md={10}>
+          <Grid xs={24} md={12}>
             <HomeCell
               icon={<Key />}
               title="Secure"
               desc="Securely store your votes and vote on your own behalf."
             />
           </Grid>
-          <Grid xs={24} md={10}>
+          <Grid xs={24} md={12}>
             <HomeCell
               icon={<Display />}
               title="Portable"

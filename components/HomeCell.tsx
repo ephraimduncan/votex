@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Link, useTheme } from "@geist-ui/core"
+import { Card, Divider, Link, Text, useTheme } from "@geist-ui/core"
 
 export type HomeCellProps = {
   title: string
@@ -11,37 +11,32 @@ const HomeCell: React.FC<HomeCellProps> = ({ title, desc, icon }) => {
   const theme = useTheme()
   return (
     <Link>
-      <Card padding="5px" shadow width="100%">
-        <h3 className="feature__title" style={{ margin: "0" }}>
-          <div className="feature__icon">{icon}</div>
-          {title}
-        </h3>
-        <p className="feature__description">{desc}</p>
+      <Card width="100%">
+        <div className="title">
+          <span className="icon">{icon}</span>
+          <Text h3 color={theme.palette.accents_6}>
+            {title}
+          </Text>
+        </div>
+        <Divider h="1px" my={0} />
+        <Card.Content>
+          <Text width={20}>{desc}</Text>
+        </Card.Content>
       </Card>
       <style jsx>{`
-        .feature__title {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
+        .icon {
+          margin: 0.25rem;
         }
-        .feature__icon {
-          height: 2rem;
-          width: 2rem;
-          padding: 0.625rem;
-          margin-right: ${theme.layout.gapHalf};
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(#3291ff, #0761d1);
-          color: #fff;
-          border-radius: 2rem;
-        }
-        .feature__icon :global(svg) {
+
+        .icon :global(svg) {
           width: 100%;
           height: 100%;
         }
-        .feature__description {
-          color: ${theme.palette.accents_6};
+
+        .title {
+          display: flex;
+          align-items: center;
+          padding-left: 1rem;
         }
       `}</style>
     </Link>
