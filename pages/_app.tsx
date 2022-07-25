@@ -1,5 +1,7 @@
 import { SessionProvider } from "next-auth/react"
 import type { AppProps } from "next/app"
+import { GeistProvider } from "@geist-ui/core"
+import "inter-ui/inter.css"
 import "./styles.css"
 
 // Use the <SessionProvider> to improve performance and allow components that call
@@ -11,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
       // you have a short session maxAge time. Shown here with default values.
       session={pageProps.session}
     >
-      <Component {...pageProps} />
+      <GeistProvider>
+        <Component {...pageProps} />
+      </GeistProvider>
     </SessionProvider>
   )
 }
