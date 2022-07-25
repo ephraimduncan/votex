@@ -1,6 +1,4 @@
-import Link from "next/link"
 import styles from "./footer.module.css"
-import packageInfo from "../package.json"
 
 export default function Footer() {
   return (
@@ -8,21 +6,7 @@ export default function Footer() {
       <hr />
       <ul className={styles.navItems}>
         <li className={styles.navItem}>
-          <a href="https://next-auth.js.org">Documentation</a>
-        </li>
-        <li className={styles.navItem}>
-          <a href="https://www.npmjs.com/package/next-auth">NPM</a>
-        </li>
-        <li className={styles.navItem}>
-          <a href="https://github.com/nextauthjs/next-auth-example">GitHub</a>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/policy">
-            <a>Policy</a>
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <em>next-auth@{packageInfo.dependencies["next-auth"]}</em>
+          Built by <a href="https://astrosaurus.me">Ephraim Atta-Duncan</a>
         </li>
       </ul>
     </footer>
