@@ -1,5 +1,5 @@
-import { Text } from "@geist-ui/core"
-import { Candidate } from "@prisma/client"
+import { Divider, Grid, Table, Text } from "@geist-ui/core"
+import { Candidate, Vote } from "@prisma/client"
 import { GetStaticProps } from "next"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
@@ -7,10 +7,11 @@ import Layout from "../../components/layout"
 import prisma from "../../lib/prismaClient"
 
 interface AdminProps {
-  feed: Candidate[]
+  candidates: Candidate[]
+  votes: Vote[]
 }
 
-export default function AdminPage({ feed }: AdminProps) {
+export default function AdminPage({ candidates, votes }: AdminProps) {
   const router = useRouter()
 
   const { data, status } = useSession({
@@ -36,19 +37,46 @@ export default function AdminPage({ feed }: AdminProps) {
     )
   }
 
+  const voteResult = candidates
+    .sort((a, b) => a.portfolio.localeCompare(b.portfolio))
+    .map((candidate) => {
+      return {
+        portfolio: candidate.portfolio,
+        name: candidate.name,
+        votes: candidate.Votes.length ? candidate.Votes.length : "-",
+      }
+    })
+
   return (
     <Layout>
       <Text h1>Admin Dashboard</Text>
-      <div>
-        <pre>{JSON.stringify(feed, null, 2)}</pre>
-      </div>
+      <Divider />
+      <Text h2>Total Votes Cast: {votes.length}</Text>
+      <Grid>
+        <Table data={voteResult}>
+          <Table.Column prop="portfolio" label="portfolio" />
+          <Table.Column prop="name" label="name" />
+          <Table.Column prop="votes" label="Number of Votes" />
+        </Table>
+      </Grid>
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.candidate.findMany()
+  const candidates = await prisma.candidate.findMany({
+    include: {
+      Votes: { select: { candidateId: true } },
+    },
+  })
+
+  const votes = await prisma.vote.findMany({
+    include: {
+      candidate: { select: { name: true } },
+    },
+  })
+
   return {
-    props: { feed },
+    props: { candidates, votes },
   }
 }

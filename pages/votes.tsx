@@ -24,6 +24,11 @@ export default function Page({ votes }: { votes: Vote[] }) {
     )
   }
 
+  if (data.user.provider === "credentials") {
+    router.push("/admin")
+    return <></>
+  }
+
   const tableData = votes.map((vote) => {
     return { portfolio: vote.portfolio, candidate: vote.candidate?.name }
   })
