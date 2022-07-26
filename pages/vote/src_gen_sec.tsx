@@ -28,14 +28,23 @@ export default function Page({ candidates }: VoteCandidateProps) {
     )
   }
 
-  const formSubmitHandler = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    console.log(vote)
+  async function handleVote() {
+    try {
+      const body = { candidateId: vote, portfolio: "SRC General Secretary" }
+      await fetch("/api/vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+      await router.push("/dashboard")
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
     <Layout>
-      <form onSubmit={formSubmitHandler}>
+      <form>
         <Grid marginBottom={2}>
           <Text h1 my={0}>
             SRC General Secretary
@@ -77,7 +86,7 @@ export default function Page({ candidates }: VoteCandidateProps) {
           icon={<Check />}
           type="success"
           scale={1.2}
-          onClick={formSubmitHandler}
+          onClick={handleVote}
         >
           Vote
         </Button>
