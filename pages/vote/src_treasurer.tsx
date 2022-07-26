@@ -1,15 +1,15 @@
 import { Button, Grid, Radio, Text } from "@geist-ui/core"
-import { useSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/layout"
 import Candidate from "../../components/Candidate"
 import { ArrowLeft, Check } from "@geist-ui/icons"
-import { GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import prisma from "../../lib/prismaClient"
 import { VoteCandidateProps } from "../../types/types"
 
-export default function Page({ candidates }: VoteCandidateProps) {
+export default function Page({ candidates, votes }: VoteCandidateProps) {
   const router = useRouter()
   const [vote, setVote] = useState<string | number>("")
 
@@ -49,25 +49,28 @@ export default function Page({ candidates }: VoteCandidateProps) {
           <Text h1 my={0}>
             SRC Treasurer
           </Text>
-          <Radio.Group
-            value={vote}
-            onChange={(val) => {
-              setVote(val)
-              console.log(val)
-            }}
-          >
-            {candidates.map(({ name, programme, id }) => {
-              return (
-                <Radio value={id} key={id}>
-                  <Candidate
-                    name={name}
-                    programme={programme}
-                    imageSrc="/logo.jpg"
-                  />
-                </Radio>
-              )
-            })}
-          </Radio.Group>
+          {votes && <Text>You have already voted for this portfolio</Text>}
+          {!votes && (
+            <Radio.Group
+              value={vote}
+              onChange={(val) => {
+                setVote(val)
+                console.log(val)
+              }}
+            >
+              {candidates.map(({ name, programme, id }) => {
+                return (
+                  <Radio value={id} key={id}>
+                    <Candidate
+                      name={name}
+                      programme={programme}
+                      imageSrc="/logo.jpg"
+                    />
+                  </Radio>
+                )
+              })}
+            </Radio.Group>
+          )}
         </Grid>
 
         <Button
@@ -80,26 +83,35 @@ export default function Page({ candidates }: VoteCandidateProps) {
         >
           Back
         </Button>
-        <Button
-          my={2}
-          auto
-          icon={<Check />}
-          type="success"
-          scale={1.2}
-          onClick={handleVote}
-        >
-          Vote
-        </Button>
+        {!votes && (
+          <Button
+            my={2}
+            auto
+            icon={<Check />}
+            type="success"
+            scale={1.2}
+            onClick={handleVote}
+          >
+            Vote
+          </Button>
+        )}
       </form>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
   const candidates = await prisma.candidate.findMany({
     where: { portfolio: { equals: "SRC Treasurer" } },
   })
+
+  const votes = await prisma.vote.findMany({
+    where: { User: { email: { equals: session?.user.email } } },
+  })
+
   return {
-    props: { candidates },
+    props: { candidates, votes },
   }
 }

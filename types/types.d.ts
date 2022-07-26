@@ -1,3 +1,5 @@
+import { Candidate, Vote } from "@prisma/client"
+
 declare global {
   namespace NodeJS {
     interface Global {
@@ -8,4 +10,5 @@ declare global {
 
 export interface VoteCandidateProps {
   candidates: Candidate[]
+  votes: Vote[]
 }
