@@ -1,20 +1,12 @@
-import { Avatar, Button, Card, Grid, Radio, Text, User } from "@geist-ui/core"
+import { Button, Grid, Text } from "@geist-ui/core"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
-import { useState } from "react"
-import Image from "next/image"
 import Layout from "../components/layout"
-import Candidate from "../components/Candidate"
 import { Check } from "@geist-ui/icons"
 import Link from "next/link"
 
 export default function Page() {
   const router = useRouter()
-  const [srcPresidentVote, setSRCPresidentVote] = useState<string | number>("")
-  const [srcGeneralSecretaryVote, setSRCGeneralSecretaryVote] = useState<
-    string | number
-  >("")
-  const [srcTreasureVote, setSRCTreasurerVote] = useState<string | number>("")
 
   const { data, status } = useSession({
     required: true,
@@ -29,11 +21,6 @@ export default function Page() {
         <div>Page Loading...</div>
       </Layout>
     )
-  }
-
-  const formSubmitHandler = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    console.log(srcPresidentVote, srcTreasureVote, srcGeneralSecretaryVote)
   }
 
   return (

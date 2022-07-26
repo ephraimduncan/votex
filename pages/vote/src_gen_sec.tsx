@@ -13,6 +13,10 @@ export default function Page({ candidates, votes }: VoteCandidateProps) {
   const router = useRouter()
   const [vote, setVote] = useState<string | number>("")
 
+  const userAlreadyVoted = votes.length > 0
+
+  console.log(votes)
+
   const { data, status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -49,8 +53,10 @@ export default function Page({ candidates, votes }: VoteCandidateProps) {
           <Text h1 my={0}>
             SRC General Secretary
           </Text>
-          {votes && <Text>You have already voted for this portfolio</Text>}
-          {!votes && (
+          {userAlreadyVoted && (
+            <Text>You have already voted for this portfolio</Text>
+          )}
+          {!userAlreadyVoted && (
             <Radio.Group
               value={vote}
               onChange={(val) => {
@@ -83,7 +89,7 @@ export default function Page({ candidates, votes }: VoteCandidateProps) {
         >
           Back
         </Button>
-        {!votes && (
+        {!userAlreadyVoted && (
           <Button
             my={2}
             auto
@@ -104,11 +110,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
   const candidates = await prisma.candidate.findMany({
-    where: { portfolio: { equals: "SRC Treasurer" } },
+    where: { portfolio: { equals: "SRC General Secretary" } },
   })
 
   const votes = await prisma.vote.findMany({
-    where: { User: { email: { equals: session?.user.email } } },
+    where: {
+      User: { email: { equals: session?.user.email } },
+      portfolio: { equals: "SRC General Secretary" },
+    },
   })
 
   return {

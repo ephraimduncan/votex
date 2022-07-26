@@ -72,8 +72,8 @@ export default function Header() {
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href={isAdmin ? "/admin/create" : "/client"}>
-              <a>{isAdmin ? "Create Candidate" : "Your Votes"}</a>
+            <Link href={isAdmin ? "/admin/create" : "/votes"}>
+              <a>{isAdmin ? "Create Candidate" : "My Votes"}</a>
             </Link>
           </li>
         </ul>
