@@ -14,7 +14,8 @@
     "build": "next build",
     "start": "next start",
     "types": "tsc --noEmit",
-    "database": "docker-compose up -d"
+    "database": "docker-compose up -d",
+    "studio": "prisma studio"
   },
   "author": "Lluis Agusti <lluis@hey.com>",
   "contributors": [

@@ -45,6 +45,25 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  vote          Votes[]
+}
+
+model Votes {
+  id          Int       @id @default(autoincrement())
+  portfolio   String
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  candidateId String
+  User        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Candidate {
+  id        String  @id @default(cuid())
+  name      String
+  image     String
+  portfolio String
+  programme String
+  Votes     Votes[]
 }
 
 model VerificationToken {
