@@ -38,6 +38,27 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "Vote" (
+    "id" SERIAL NOT NULL,
+    "portfolio" TEXT NOT NULL,
+    "candidateId" TEXT NOT NULL,
+    "userId" TEXT,
+
+    CONSTRAINT "Vote_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Candidate" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "portfolio" TEXT NOT NULL,
+    "programme" TEXT NOT NULL,
+
+    CONSTRAINT "Candidate_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "VerificationToken" (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
@@ -64,3 +85,9 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Vote" ADD CONSTRAINT "Vote_candidateId_fkey" FOREIGN KEY ("candidateId") REFERENCES "Candidate"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Vote" ADD CONSTRAINT "Vote_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

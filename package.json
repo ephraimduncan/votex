@@ -15,7 +15,8 @@
     "start": "next start",
     "types": "tsc --noEmit",
     "database": "docker-compose up -d",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "migrate": "prisma migrate dev"
   },
   "author": "Lluis Agusti <lluis@hey.com>",
   "contributors": [

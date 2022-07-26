@@ -45,10 +45,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  vote          Votes[]
+  votes         Vote[]
 }
 
-model Votes {
+model Vote {
   id          Int       @id @default(autoincrement())
   portfolio   String
   candidate   Candidate @relation(fields: [candidateId], references: [id])
@@ -58,12 +58,12 @@ model Votes {
 }
 
 model Candidate {
-  id        String  @id @default(cuid())
+  id        String @id @default(cuid())
   name      String
   image     String
   portfolio String
   programme String
-  Votes     Votes[]
+  Votes     Vote[]
 }
 
 model VerificationToken {
