@@ -9,6 +9,8 @@ export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === "loading"
 
+  const isAdmin = session?.user.provider !== "google"
+
   return (
     <header>
       <noscript>
@@ -65,13 +67,13 @@ export default function Header() {
       <nav>
         <ul className={styles.navItems}>
           <li className={styles.navItem}>
-            <Link href="/dashboard">
-              <a>Home</a>
+            <Link href={isAdmin ? "/admin/dashboard" : "/dashboard"}>
+              <a>{isAdmin ? "Admin Dashboard" : "Home"}</a>
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/client">
-              <a>Your Votes</a>
+            <Link href={isAdmin ? "/admin/create" : "/client"}>
+              <a>{isAdmin ? "Create Candidate" : "Your Votes"}</a>
             </Link>
           </li>
         </ul>
