@@ -1,9 +1,16 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import Credentials from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
+
+const isCorrectCredentials = (
+  credentials: Record<"username" | "password", string> | undefined
+) =>
+  credentials?.username === process.env.NEXTAUTH_USERNAME &&
+  credentials?.password === process.env.NEXTAUTH_PASSWORD
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -11,6 +18,21 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+    }),
+    Credentials({
+      name: "Credentials as Admin",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "admin" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        if (isCorrectCredentials(credentials)) {
+          const user = { id: 1, name: "Electoral Commisioner", admin: true }
+          return Promise.resolve(user)
+        } else {
+          return Promise.reject("/")
+        }
+      },
     }),
   ],
 
@@ -22,35 +44,34 @@ export default NextAuth({
 
   jwt: {
     secret: process.env.SECRET,
-    // Set to true to use encryption (default: false)
-    // encryption: true,
-    // You can define your own encode/decode functions for signing and encryption
-    // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
-  },
-
-  // You can define custom pages to override the built-in ones. These will be regular Next.js pages
-  // so ensure that they are placed outside of the '/api' folder, e.g. signIn: '/auth/mycustom-signin'
-  // The routes shown here are the default URLs that will be used when a custom
-  // pages is not specified for that route.
-  // https://next-auth.js.org/configuration/pages
-  pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
-    // signOut: '/auth/signout', // Displays form with sign out button
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // Used for check email page
-    // newUser: null // If set, new users will be directed here on first sign in
   },
 
   // Callbacks are asynchronous functions you can use to control what happens
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) { return true },
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   if (account.type === "oauth") {
+    //     user = { ...user, admin: false }
+    //   }
+    //   console.log(user)
+    //   return true
+    // },
     // async redirect({ url, baseUrl }) { return baseUrl },
-    // async session({ session, token, user }) { return session },
-    // async jwt({ token, user, account, profile, isNewUser }) { return token }
+    async session({ session, token }) {
+      session.user = {
+        ...session.user,
+        provider: token?.provider as string,
+      }
+      return session
+    },
+
+    async jwt({ token, user, account }) {
+      if (user) {
+        token = { provider: account?.provider, ...token }
+      }
+      return token
+    },
   },
   debug: false,
 })
