@@ -1,10 +1,7 @@
-import { Button, Grid, Text } from "@geist-ui/core"
-import { getProviders, useSession } from "next-auth/react"
+import { Text } from "@geist-ui/core"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
-import { useState } from "react"
 import Layout from "../../components/layout"
-import { Check } from "@geist-ui/icons"
-import Link from "next/link"
 
 export default function Page() {
   const router = useRouter()

@@ -60,7 +60,6 @@ model Vote {
 model Candidate {
   id        String @id @default(cuid())
   name      String
-  image     String
   portfolio String
   programme String
   Votes     Vote[]

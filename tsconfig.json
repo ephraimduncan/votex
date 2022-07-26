@@ -14,12 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": [
-    "types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "next.config.js",
-    "lib/prismaClient.js"
-  ],
+  "include": ["types/**/*.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
   "exclude": ["node_modules"]
 }
