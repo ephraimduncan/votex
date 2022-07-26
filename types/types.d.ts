@@ -5,3 +5,7 @@ declare global {
     }
   }
 }
+
+export interface VoteCandidateProps {
+  candidates: Candidate[]
+}

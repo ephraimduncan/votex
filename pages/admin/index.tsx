@@ -1,9 +1,16 @@
 import { Text } from "@geist-ui/core"
+import { Candidate } from "@prisma/client"
+import { GetStaticProps } from "next"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Layout from "../../components/layout"
+import prisma from "../../lib/prismaClient"
 
-export default function Page() {
+interface AdminProps {
+  feed: Candidate[]
+}
+
+export default function AdminPage({ feed }: AdminProps) {
   const router = useRouter()
 
   const { data, status } = useSession({
@@ -32,6 +39,16 @@ export default function Page() {
   return (
     <Layout>
       <Text h1>Admin Dashboard</Text>
+      <div>
+        <pre>{JSON.stringify(feed, null, 2)}</pre>
+      </div>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const feed = await prisma.candidate.findMany()
+  return {
+    props: { feed },
+  }
 }

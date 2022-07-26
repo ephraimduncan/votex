@@ -5,8 +5,11 @@ import { useState } from "react"
 import Layout from "../../components/layout"
 import Candidate from "../../components/Candidate"
 import { ArrowLeft, Check } from "@geist-ui/icons"
+import { GetStaticProps } from "next"
+import prisma from "../../lib/prismaClient"
+import { VoteCandidateProps } from "../../types/types"
 
-export default function Page() {
+export default function Page({ candidates }: VoteCandidateProps) {
   const router = useRouter()
   const [vote, setVote] = useState<string | number>("")
 
@@ -44,16 +47,17 @@ export default function Page() {
               console.log(val)
             }}
           >
-            <Radio value="src_general_secretary_1">
-              <Candidate
-                name="Jessica Sasa-Ewool"
-                programme="Mining Engineering"
-                imageSrc="/logo.jpg"
-              />
-            </Radio>
-            <Radio value="src_general_secretary_2">
-              <Candidate name="Jennifer Smith" programme="Mining Engineering" />
-            </Radio>
+            {candidates.map(({ name, programme, id }) => {
+              return (
+                <Radio value={id} key={id}>
+                  <Candidate
+                    name={name}
+                    programme={programme}
+                    imageSrc="/logo.jpg"
+                  />
+                </Radio>
+              )
+            })}
           </Radio.Group>
         </Grid>
 
@@ -80,4 +84,13 @@ export default function Page() {
       </form>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const candidates = await prisma.candidate.findMany({
+    where: { portfolio: { equals: "SRC General Secretary" } },
+  })
+  return {
+    props: { candidates },
+  }
 }
