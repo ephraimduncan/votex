@@ -1,6 +1,5 @@
 import React from "react"
 import { Card, Grid, Radio, Text, User } from "@geist-ui/core"
-import Image from "next/image"
 
 interface CandidateProps {
   name: string
@@ -15,7 +14,7 @@ export default function Candidate({
 }: CandidateProps) {
   return (
     <>
-      <Card margin={1} marginBottom={0} width="320px">
+      <Card margin={1} marginBottom={0} width="400px">
         <User
           scale={2}
           src={imageSrc ? imageSrc : "https://unix.bio/assets/avatar.png"}

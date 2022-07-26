@@ -118,6 +118,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       User: { email: { equals: session?.user.email } },
       portfolio: { equals: "SRC General Secretary" },
     },
+    include: {
+      User: { select: { email: true, name: true } },
+      candidate: { select: { name: true } },
+    },
   })
 
   return {

@@ -23,6 +23,11 @@ export default function Page() {
     )
   }
 
+  if (data.user.provider === "credentials") {
+    router.push("/admin")
+    return <></>
+  }
+
   return (
     <Layout>
       <Grid.Container alignItems="center">
