@@ -16,5 +16,4 @@ $ pnpm install
 $ pnpm dev
 ```
 
-Create a `.env` file similar to [`.env.example`](https://github.com/leerob/leerob.io/blob/main/.env.example).
-a
+Create a `.env` file similar to [`.env.example`](/.env.example).
