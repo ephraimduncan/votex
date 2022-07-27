@@ -15,7 +15,9 @@
     "types": "tsc --noEmit",
     "database": "docker-compose up -d",
     "studio": "prisma studio",
-    "migrate": "prisma migrate dev"
+    "migrate:local": "prisma migrate dev",
+    "generate-client": "prisma generate --data-proxy",
+    "migrate": "prisma migrate deploy"
   },
   "author": "Ephraim Atta-Duncan <ephraimduncan68@gmail.com>",
   "prettier": {
