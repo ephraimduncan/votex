@@ -28,6 +28,8 @@ export default function Page() {
     return <></>
   }
 
+  console.log(data)
+
   return (
     <Layout>
       <Grid.Container alignItems="center">

@@ -46,18 +46,18 @@ export default NextAuth({
     secret: process.env.SECRET,
   },
 
-  // Callbacks are asynchronous functions you can use to control what happens
-  // when an action is performed.
-  // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   if (account.type === "oauth") {
-    //     user = { ...user, admin: false }
-    //   }
-    //   console.log(user)
-    //   return true
-    // },
-    // async redirect({ url, baseUrl }) { return baseUrl },
+    async signIn({ account, profile }) {
+      if (
+        account.provider === "google" &&
+        profile.email?.endsWith("@st.umat.edu.gh")
+      ) {
+        return Promise.resolve(true)
+      } else {
+        return Promise.resolve(false)
+      }
+    },
+
     async session({ session, token }) {
       session.user = {
         ...session.user,
