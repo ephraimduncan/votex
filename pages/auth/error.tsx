@@ -1,4 +1,5 @@
 import { Theme } from "next-auth"
+import { signIn } from "next-auth/react"
 import { InternalUrl } from "next-auth/utils/parse-url"
 
 /**
@@ -19,7 +20,6 @@ export interface ErrorProps {
 
 export default function ErrorPage(props: ErrorProps) {
   const { url, theme } = props
-  const signinPageUrl = `${url}/signin`
 
   return (
     <div className="error">
@@ -41,7 +41,7 @@ export default function ErrorPage(props: ErrorProps) {
           <div>
             <p>You do not have permission to sign in.</p>
             <p>
-              <a className="button" href={signinPageUrl}>
+              <a className="button" onClick={() => signIn("google")}>
                 Sign in with Student Email
               </a>
             </p>

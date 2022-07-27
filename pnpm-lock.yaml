@@ -15,6 +15,7 @@ specifiers:
   prisma: ^4.1.0
   react: ^17.0.2
   react-dom: ^17.0.2
+  sass: ^1.54.0
   typescript: ^4.3.4
 
 dependencies:
@@ -23,11 +24,12 @@ dependencies:
   '@next-auth/prisma-adapter': 1.0.4_fni5jwvaaxgw5ylbhkk62wna5y
   '@prisma/client': 4.1.0_prisma@4.1.0
   inter-ui: 3.19.3
-  next: 11.1.4_3tgeifm2vmwrlpqlopppsnjtcu
+  next: 11.1.4_uw7verjqnoqssxx4h5s2fn4se4
   next-auth: 4.10.2_qxnctpxauddgdoyuhxrpzhriy4
   nodemailer: 6.7.7
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  sass: 1.54.0
 
 devDependencies:
   '@types/node': 15.14.9
@@ -1006,6 +1008,10 @@ packages:
       queue: 6.0.2
     dev: false
 
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
+    dev: false
+
   /inherits/2.0.1:
     resolution: {integrity: sha512-8nWq2nLTAwd02jTqJExUYFSD/fKq6VH9Y/oG2accc/kdI0V98Bag8d5a4gi3XHz73rDWa2PvTtvcWYquKqSENA==}
     dev: false
@@ -1303,7 +1309,7 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next/11.1.4_3tgeifm2vmwrlpqlopppsnjtcu:
+  /next/11.1.4_uw7verjqnoqssxx4h5s2fn4se4:
     resolution: {integrity: sha512-GWQJrWYkfAKP8vmrzJcCfRSKv955Khyjqd5jipTcVKDGg+SH+NfjDMWFtCwArcQlHPvzisGu1ERLY0+Eoj7G+g==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -1363,6 +1369,7 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
       react-refresh: 0.8.3
+      sass: 1.54.0
       stream-browserify: 3.0.0
       stream-http: 3.1.1
       string_decoder: 1.3.0
@@ -1796,6 +1803,16 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
+  /sass/1.54.0:
+    resolution: {integrity: sha512-C4zp79GCXZfK0yoHZg+GxF818/aclhp9F48XBu/+bm9vXEVAYov9iU3FBVRMq3Hx3OA4jfKL+p2K9180mEh0xQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.1
+      immutable: 4.1.0
+      source-map-js: 1.0.2
+    dev: false
+
   /scheduler/0.20.2:
     resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
     dependencies:
@@ -1834,6 +1851,11 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.1.2
       object-inspect: 1.12.2
+    dev: false
+
+  /source-map-js/1.0.2:
+    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
+    engines: {node: '>=0.10.0'}
     dev: false
 
   /source-map/0.6.1:

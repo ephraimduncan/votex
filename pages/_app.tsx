@@ -2,7 +2,8 @@ import { SessionProvider } from "next-auth/react"
 import type { AppProps } from "next/app"
 import { GeistProvider } from "@geist-ui/core"
 import "inter-ui/inter.css"
-import "./styles.css"
+import "../style/styles.css"
+import "../style/next-auth.scss"
 
 // Use the <SessionProvider> to improve performance and allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
