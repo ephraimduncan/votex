@@ -1,4 +1,4 @@
-import { Button, Grid, Radio, Text } from "@geist-ui/core"
+import { Button, Grid, Radio, Text, useToasts } from "@geist-ui/core"
 import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useState } from "react"
@@ -11,6 +11,7 @@ import { VoteCandidateProps } from "../../types/types"
 
 export default function Page({ candidates, votes }: VoteCandidateProps) {
   const router = useRouter()
+  const { setToast } = useToasts()
   const [vote, setVote] = useState<string | number>("")
 
   const userAlreadyVoted = votes.length > 0
@@ -32,6 +33,7 @@ export default function Page({ candidates, votes }: VoteCandidateProps) {
 
   async function handleVote() {
     try {
+      setToast({ text: "Vote Cast", delay: 2000 })
       const body = { candidateId: vote, portfolio: "SRC President" }
       await fetch("/api/vote", {
         method: "POST",
