@@ -3,7 +3,9 @@
 # Votex
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **Deployment**: [Vercel](https://vercel.com)
+- **Deployment**: [Vercel](https://vercel.com/)
+- **Database**: [PostgresSQL](https://postgresql.org)
+- **ORM**: [Prisma](https://prisma.io/)
 - **Authentication**: [NextAuth.js](https://next-auth.js.org/)
 - **Styling**: [Geist UI](https://geist-ui.dev/en-us)
 

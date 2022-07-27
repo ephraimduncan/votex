@@ -72,7 +72,7 @@ export default function Page({ candidates, votes }: VoteCandidateProps) {
                     <Candidate
                       name={name}
                       programme={programme}
-                      imageSrc="/logo.jpg"
+                      imageSrc="/avatar.png"
                     />
                   </Radio>
                 )
