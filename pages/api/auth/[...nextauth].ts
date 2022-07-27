@@ -46,6 +46,10 @@ export default NextAuth({
     secret: process.env.SECRET,
   },
 
+  pages: {
+    error: "/auth/error?error=AccessDenied",
+  },
+
   callbacks: {
     async signIn({ account, profile }) {
       if (
