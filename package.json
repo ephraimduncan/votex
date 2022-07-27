@@ -1,13 +1,12 @@
 {
-  "name": "next-auth-typescript-example",
-  "version": "0.0.0",
+  "name": "votex",
   "private": true,
-  "description": "An example project for NextAuth.js using Typescript",
-  "repository": "https://github.com/nextauthjs/next-auth-typescript-example.git",
+  "description": "A voting application using Next.js with NextAuth.js and Typescript",
+  "repository": "https://github.com/dephraiim/votex.git",
   "bugs": {
-    "url": "https://github.com/nextauthjs/next-auth/issues"
+    "url": "https://github.com/dephraiim/votex.git"
   },
-  "homepage": "http://next-auth-typescript-example.now.sh",
+  "homepage": "http://astrosaurus.me",
   "main": "",
   "scripts": {
     "dev": "next",
@@ -18,13 +17,7 @@
     "studio": "prisma studio",
     "migrate": "prisma migrate dev"
   },
-  "author": "Lluis Agusti <lluis@hey.com>",
-  "contributors": [
-    "Balázs Orbán <info@balazsorban.com>",
-    "Iain Collins <me@iaincollins.com>",
-    "Nico Domino <yo@ndo.dev>"
-  ],
-  "license": "ISC",
+  "author": "Ephraim Atta-Duncan <ephraimduncan68@gmail.com>",
   "prettier": {
     "semi": false
   },
