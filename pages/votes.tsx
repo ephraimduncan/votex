@@ -6,7 +6,18 @@ import { GetServerSideProps } from "next"
 import prisma from "../lib/prismaClient"
 import { Vote } from "@prisma/client"
 
-export default function Page({ votes }: { votes: Vote[] }) {
+interface CustomVote extends Vote {
+  candidate: {
+    name: string
+    portfolio: string
+  }
+}
+
+interface VoteProps {
+  votes: CustomVote[]
+}
+
+export default function Page({ votes }: VoteProps) {
   const router = useRouter()
 
   const { data, status } = useSession({

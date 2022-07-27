@@ -6,8 +6,12 @@ import { useRouter } from "next/router"
 import Layout from "../../components/layout"
 import prisma from "../../lib/prismaClient"
 
+interface CustomCandiate extends Candidate {
+  Votes: Vote[]
+}
+
 interface AdminProps {
-  candidates: Candidate[]
+  candidates: CustomCandiate[]
   votes: Vote[]
 }
 
