@@ -57,9 +57,13 @@ export default NextAuth({
         profile.email?.endsWith("@st.umat.edu.gh")
       ) {
         return Promise.resolve(true)
-      } else {
-        return Promise.resolve(false)
       }
+
+      if (account.provider === "credentials") {
+        return Promise.resolve(true)
+      }
+
+      return Promise.resolve(false)
     },
 
     async session({ session, token }) {
